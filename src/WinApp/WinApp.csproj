@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>Mimetick</AssemblyName>
     <RootNamespace>Mimetick.WinApp</RootNamespace>
+    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
