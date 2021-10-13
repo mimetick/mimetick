@@ -51,6 +51,11 @@ jobs:
       - name: Build solution
         run: dotnet build -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-restore --nologo
 
+
+      - name: Publish solution
+        run: dotnet publish -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo
+
+        
       # - name: Cache SonarCloud packages
       #   uses: actions/cache@v1
       #   with:
