@@ -52,7 +52,7 @@ jobs:
         run: dotnet build -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-restore --nologo -p:Version=${{ env.GitVersion_AssemblySemVer }} -p:FileVersion=${{env.GitVersion_AssemblySemFileVer}} -p:InformationalVersion=${{env.GitVersion_InformationalVersion}}
 
       - name: Test solution
-        run: dotnet test -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo --collect:"XPlat Code Coverage" --results-directory TestResults/ --logger "trx;LogFileName=unittests.trx"  -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        run: dotnet test ./tests/WinApp.Tests.csproj -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo --collect:"XPlat Code Coverage" --results-directory TestResults/ --logger "trx;LogFileName=unittests.trx"  -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
 
       - name: Publish application
         run: dotnet publish ./src/WinApp/WinApp.csproj -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo
