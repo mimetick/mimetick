@@ -65,10 +65,10 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"mimetick_mimetick" /v:${{ env.GitVersion_AssemblySemVer }} /o:"mimetick" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vstest.reportsPaths=TestResults/*.trx /d:sonar.cs.opencover.reportsPaths=TestResults/*/coverage.opencover.xml /d:sonar.coverage.exclusions="**Test*.cs"
 
       - name: Build solution
-        run: dotnet build -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-restore --nologo -p:Version=${{ env.GitVersion_AssemblySemVer }} -p:FileVersion=${{env.GitVersion_AssemblySemFileVer}} -p:InformationalVersion=${{env.GitVersion_InformationalVersion}}
+        run: dotnet build --framework netcoreapp3.1 -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-restore --nologo -p:Version=${{ env.GitVersion_AssemblySemVer }} -p:FileVersion=${{env.GitVersion_AssemblySemFileVer}} -p:InformationalVersion=${{env.GitVersion_InformationalVersion}}
 
       - name: Test solution
-        run: dotnet test --no-build --nologo --runtime ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --collect:"XPlat Code Coverage" --results-directory TestResults/ --logger "trx;LogFileName=unittests.trx" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        run: dotnet test --framework netcoreapp3.1 --no-build --nologo --runtime ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --collect:"XPlat Code Coverage" --results-directory TestResults/ --logger "trx;LogFileName=unittests.trx" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
 
       - name: Stop sonar analyze
         env:
@@ -79,7 +79,7 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: Publish application
-        run: dotnet publish ./src/WinApp/WinApp.csproj -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo
+        run: dotnet publish ./src/WinApp/WinApp.csproj --framework netcoreapp3.1 -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo
 
 
       # - name: Cache SonarCloud packages
