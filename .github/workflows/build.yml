@@ -93,6 +93,11 @@ jobs:
         run: |
           msbuild ./src/WinApp.Installer/WinApp.Installer.wixproj /p:Configuration=${{ env.DOTNET_CONFIGURATION }} /p:Platform=${{ steps.platform.outputs.substring }} /p:RuntimeIdentifier=${{ matrix.runtime }} 
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: setup
+          path: ./src/WinApp.Installer/bin/${{ env.DOTNET_CONFIGURATION }}/en-us/Mimetick-{{ steps.platform.outputs.substring }}.msi
 
       # - name: Cache SonarCloud packages
       #   uses: actions/cache@v1
