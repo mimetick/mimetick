@@ -99,42 +99,16 @@ jobs:
           name: setup
           path: ./src/WinApp.Installer/bin/${{ env.DOTNET_CONFIGURATION }}/en-us/Mimetick-{{ steps.platform.outputs.substring }}.msi
 
-      # - name: Cache SonarCloud packages
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ~\sonar\cache
-      #     key: ${{ runner.os }}-sonar
-      #     restore-keys: ${{ runner.os }}-sonar
-
-      # - name: Cache SonarCloud scanner
-      #   id: cache-sonar-scanner
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: .\.sonar\scanner
-      #     key: ${{ runner.os }}-sonar-scanner
-      #     restore-keys: ${{ runner.os }}-sonar-scanner
-
-      # - name: Install SonarCloud scanner
-      #   if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-      #   shell: powershell
-      #   run: |
-      #     New-Item -Path .\.sonar\scanner -ItemType Directory
-      #     dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-
-      # - name: Build and analyze
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #   shell: powershell
-      #   run: |
-      #     .\.sonar\scanner\dotnet-sonarscanner begin /k:"mimetick_mimetick" /v:${{ env.GitVersion_AssemblySemVer }} /o:"mimetick" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vstest.reportsPaths=TestResults/*.trx /d:sonar.cs.opencover.reportsPaths=TestResults/*/coverage.opencover.xml /d:sonar.coverage.exclusions="**Test*.cs"
-      #     dotnet build -p:Version=${{ env.GitVersion_AssemblySemVer }} -p:FileVersion=${{env.GitVersion_AssemblySemFileVer}} -p:InformationalVersion=${{env.GitVersion_InformationalVersion}}
-      #     dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults/ --logger "trx;LogFileName=unittests.trx"  -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-      #     .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-
-      # - name: Build x64 Application
-      #   shell: powershell
-      #   run: |
-      #     dotnet publish ./src/WinApp/WinApp.csproj -r win-x64 -c Release -p:Version=${{ env.GitVersion_AssemblySemVer }} -p:FileVersion=${{env.GitVersion_AssemblySemFileVer}} -p:InformationalVersion=${{env.GitVersion_InformationalVersion}}
-      #     msbuild ./src/WinApp.Installer/WinApp.Installer.wixproj /p:Configuration=Release /p:Platform=x64
-
+  deploy:
+    name: Deploy
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: setup
+          path: ~/setups
+          
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ~/setups
