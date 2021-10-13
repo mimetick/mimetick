@@ -81,6 +81,11 @@ jobs:
       - name: Publish application
         run: dotnet publish ./src/WinApp/WinApp.csproj -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo
 
+      - name: Create setup
+        shell: powershell
+        run: |
+          msbuild ./src/WinApp.Installer/WinApp.Installer.wixproj /p:Configuration=${{ env.DOTNET_CONFIGURATION }} /p:RuntimeIdentifier=${{ matrix.runtime }} 
+
 
       # - name: Cache SonarCloud packages
       #   uses: actions/cache@v1
