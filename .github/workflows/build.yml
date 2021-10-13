@@ -5,13 +5,16 @@ on:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
-env:
-  DOTNET_CLI_TELEMETRY_OPTOUT: 1
-  DOTNET_CONFIGURATION: Release
 jobs:
-  setup:
-    name: Setup
+  build:
+    name: Build
     runs-on: windows-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_CONFIGURATION: Release
+    strategy:
+      matrix:
+        runtime: [win-x86,win-x64]
     steps:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.3
@@ -30,14 +33,10 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '3.1.x'
-  build:
-    name: Build
-    runs-on: windows-latest
-    needs: setup
-    strategy:
-      matrix:
-        runtime: [win-x86,win-x64]
-    steps:
+
+      - name: Setup Sonar
+        uses: ./.github/workflows/composite/sonar-setup
+
       - name: Checkout source code
         uses: actions/checkout@v2
         with:
