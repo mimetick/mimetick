@@ -81,10 +81,17 @@ jobs:
       - name: Publish application
         run: dotnet publish ./src/WinApp/WinApp.csproj -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo
 
+      - name: Define setup platform target
+        uses: bhowell2/github-substring-action
+        id: platform
+        with:
+          value: ${{ matrix.runtime }}
+          index_of_str: "win-"
+
       - name: Create setup
         shell: powershell
         run: |
-          msbuild ./src/WinApp.Installer/WinApp.Installer.wixproj /p:Configuration=${{ env.DOTNET_CONFIGURATION }} /p:RuntimeIdentifier=${{ matrix.runtime }} 
+          msbuild ./src/WinApp.Installer/WinApp.Installer.wixproj /p:Configuration=${{ env.DOTNET_CONFIGURATION }} /p:Platform=${{ steps.platform.outputs.substring }} /p:RuntimeIdentifier=${{ matrix.runtime }} 
 
 
       # - name: Cache SonarCloud packages
