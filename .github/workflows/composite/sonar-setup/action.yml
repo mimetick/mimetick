@@ -22,10 +22,7 @@ runs:
   - name: Install SonarCloud scanner
     shell: powershell
     run: |
-      if echo ${{ steps.cache-sonar-scanner.outputs.cache-hit }} | grep -c "true"
-      then
-        echo "Cache hit - skipping dependency installation"
-      else
+      if(${{ steps.cache-sonar-scanner.outputs.cache-hit }} -neq "true"){
         New-Item -Path .\.sonar\scanner -ItemType Directory
         dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      fi
+      }
