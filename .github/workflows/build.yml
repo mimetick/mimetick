@@ -97,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: setup
-          path: ./src/WinApp.Installer/bin/${{ env.DOTNET_CONFIGURATION }}/en-us/Mimetick-{{ steps.platform.outputs.substring }}.msi
+          path: ./src/WinApp.Installer/bin/${{ env.DOTNET_CONFIGURATION }}/en-us/Mimetick-${{ steps.platform.outputs.substring }}.msi
 
   deploy:
     name: Deploy
