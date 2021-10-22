@@ -9,23 +9,43 @@ jobs:
   build:
     name: Build
     runs-on: windows-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_CONFIGURATION: Release
+    strategy:
+      matrix:
+        runtime: [win-x86,win-x64]
     steps:
-      - name: Add msbuild to PATH
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis      
+
+      - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.3
 
-      - name: Set up JDK 11
+      - name: Setup JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
 
-      - uses: actions/checkout@v2
+      - name: Setup Dotnet 3.1
+        uses: actions/setup-dotnet@v1
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          dotnet-version: '3.1.x'
 
-      - name: Install GitVersion
+      - name: Setup Dotnet 5.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Setup GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
           versionSpec: '5.5.x'
+
+      - name: Setup Sonar
+        uses: ./.github/workflows/composite/sonar-setup
 
       - name: Determine Version
         uses: gittools/actions/gitversion/execute@v0.9.7
@@ -33,42 +53,62 @@ jobs:
           useConfigFile: true
           configFilePath: GitVersion.yml
 
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v1
-        with:
-          path: ~\sonar\cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+      - name: Restore dependencies
+        run: dotnet restore -r ${{ matrix.runtime }}
 
-      - name: Cache SonarCloud scanner
-        id: cache-sonar-scanner
-        uses: actions/cache@v1
-        with:
-          path: .\.sonar\scanner
-          key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner.os }}-sonar-scanner
-
-      - name: Install SonarCloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        shell: powershell
-        run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-
-      - name: Build and analyze
+      - name: Start sonar analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"mimetick_mimetick" /v:${{ env.GitVersion_AssemblySemVer }} /o:"mimetick" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vstest.reportsPaths=TestResults/*.trx /d:sonar.cs.opencover.reportsPaths=TestResults/*/coverage.opencover.xml /d:sonar.coverage.exclusions="**Test*.cs"
-          dotnet build -p:Version=${{ env.GitVersion_AssemblySemVer }} -p:FileVersion=${{env.GitVersion_AssemblySemFileVer}} -p:InformationalVersion=${{env.GitVersion_InformationalVersion}}
-          dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults/ --logger "trx;LogFileName=unittests.trx"  -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
-      - name: Build x64 Application
+      - name: Build solution
+        run: dotnet build -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-restore --nologo -p:Version=${{ env.GitVersion_AssemblySemVer }} -p:FileVersion=${{env.GitVersion_AssemblySemFileVer}} -p:InformationalVersion=${{env.GitVersion_InformationalVersion}}
+
+      - name: Test solution
+        run: dotnet test --no-build --nologo --runtime ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --collect:"XPlat Code Coverage" --results-directory TestResults/ --logger "trx;LogFileName=unittests.trx" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+
+      - name: Stop sonar analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          dotnet publish ./src/WinApp/WinApp.csproj -r win-x64 -c Release -p:Version=${{ env.GitVersion_AssemblySemVer }} -p:FileVersion=${{env.GitVersion_AssemblySemFileVer}} -p:InformationalVersion=${{env.GitVersion_InformationalVersion}}
-          msbuild ./src/WinApp.Installer/WinApp.Installer.wixproj /p:Configuration=Release /p:Platform=x64
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
+      - name: Publish application
+        run: dotnet publish ./src/WinApp/WinApp.csproj -r ${{ matrix.runtime }} -c ${{ env.DOTNET_CONFIGURATION }} --no-build --nologo
+
+      - name: Define setup platform target
+        uses: bhowell2/github-substring-action@v1.0.0
+        id: platform
+        with:
+          value: ${{ matrix.runtime }}
+          index_of_str: "win-"
+
+      - name: Create setup
+        shell: powershell
+        run: |
+          msbuild ./src/WinApp.Installer/WinApp.Installer.wixproj /p:Configuration=${{ env.DOTNET_CONFIGURATION }} /p:Platform=${{ steps.platform.outputs.substring }} /p:RuntimeIdentifier=${{ matrix.runtime }} 
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: setup
+          path: ./src/WinApp.Installer/bin/${{ env.DOTNET_CONFIGURATION }}/en-us/*.msi
+
+  deploy:
+    name: Deploy
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: setup
+          path: ./setups/
+          
+      - name: Display structure of downloaded files
+        run: ls
+        working-directory: ./setups
