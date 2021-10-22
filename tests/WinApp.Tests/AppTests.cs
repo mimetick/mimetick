@@ -14,10 +14,7 @@ namespace Mimetick.WinApp.Tests
         [STATestMethod]
         public void Should_HaveSshModuleRegister_When_BootstrapApplication()
         {
-            var app = new App();
-
-            app.Startup += (s, e) => { app.Shutdown(); };
-            app.Run();
+            var app = ApplicationTest.Instance;
 
             var provider = app.Container.CreateScope();
             var module = provider.Resolve(typeof(SshModule));
@@ -28,10 +25,7 @@ namespace Mimetick.WinApp.Tests
         [STATestMethod]
         public void Should_HaveGitModuleRegister_When_BootstrapApplication()
         {
-            var app = new App();
-
-            app.Startup += (s, e) => { app.Shutdown(); };
-            app.Run();
+            var app = ApplicationTest.Instance;
 
             var provider = app.Container.CreateScope();
             var module = provider.Resolve(typeof(GitModule));
