@@ -30,7 +30,7 @@ namespace Mimetick.WinApp.Tests
         [STATestMethod]
         public void TestMethod1()
         {
-            var mainWindow = new MainWindow();
+            var mainWindow = new ShellView();
 
             Assert.IsNotNull(mainWindow);
         }
