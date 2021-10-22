@@ -1,7 +1,7 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading;
 
-namespace Mimetick.WinApp.Tests
+namespace Mimetick.WinApp.Tests.Utils
 {
     public class STATestMethodAttribute : TestMethodAttribute
     {
@@ -21,18 +21,6 @@ namespace Mimetick.WinApp.Tests
         private TestResult[] Invoke(ITestMethod testMethod)
         {
             return new[] { testMethod.Invoke(null) };
-        }
-    }
-
-    [TestClass]
-    public class UnitTest1
-    {
-        [STATestMethod]
-        public void TestMethod1()
-        {
-            var mainWindow = new MainWindow();
-
-            Assert.IsNotNull(mainWindow);
         }
     }
 }
