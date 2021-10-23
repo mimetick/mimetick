@@ -1,8 +1,7 @@
-mode: Mainline
-branches: 
+mode: ContinuousDeployment
+branches:
   pull-request:
-    tag: preview
-    tag-number-pattern: '[/-](?<number>\d+)[-/]'
+    tag: rc
 ignore:
   sha: []
 merge-message-formats: {}
