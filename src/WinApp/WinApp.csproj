@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\Module.Git\Plugins.Git.csproj" />
-    <ProjectReference Include="..\Module.Ssh\Plugins.Ssh.csproj" />
     <ProjectReference Include="..\Plugins.Git\Plugins.Git.csproj" />
     <ProjectReference Include="..\Plugins.Ssh\Plugins.Ssh.csproj" />
     <ProjectReference Include="..\WinApp.Plugins\WinApp.Plugins.csproj" />
