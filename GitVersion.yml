@@ -1,5 +1,7 @@
 mode: Mainline
-branches: {}
+branches: 
+  pull-request:
+    tag: preview
 ignore:
   sha: []
 merge-message-formats: {}
