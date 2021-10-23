@@ -3,8 +3,8 @@
     public static class RegionNames
     {
         /// <summary>
-        /// The name of the region for modules
+        /// The name of the main region
         /// </summary>
-        public const string ModuleRegion = "Modules";
+        public const string MainRegion = "Main";
     }
 }

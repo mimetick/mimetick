@@ -10,13 +10,11 @@ namespace Mimetick.Module.Ssh
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var regionManager = containerProvider.Resolve<IRegionManager>();
-
-            regionManager.RegisterViewWithRegion<SshModuleItemView>(RegionNames.ModuleRegion);
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IMimetickPlugin, SshPlugin>("SSH");
         }
     }
 }
