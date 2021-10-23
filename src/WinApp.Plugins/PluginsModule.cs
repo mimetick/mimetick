@@ -26,6 +26,7 @@ namespace Mimetick.WinApp.Plugins
         /// <param name="containerRegistry">The container registry.</param>
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // We don't actually have anything to register
         }
     }
 }
