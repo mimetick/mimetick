@@ -40,7 +40,7 @@ namespace Mimetick.WinApp
         /// <param name="containerRegistry">The container registry.</param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // TODO : Register application services
+            // We don't actually have anything to register.
         }
 
         /// <summary>
@@ -50,7 +50,6 @@ namespace Mimetick.WinApp
         protected override IContainerExtension CreateContainerExtension()
         {
             var serviceCollection = new ServiceCollection();
-
             serviceCollection.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
             var container = new UnityContainer();
