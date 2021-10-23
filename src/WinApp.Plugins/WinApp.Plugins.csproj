@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>Mimetick.Module.Ssh</AssemblyName>
-    <RootNamespace>Mimetick.Module.Ssh</RootNamespace>
+    <AssemblyName>Mimetick.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>Mimetick.$(MSBuildProjectName)</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 

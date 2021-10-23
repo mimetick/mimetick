@@ -9,6 +9,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ItemsControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ModuleRegion}"></ItemsControl>
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MainRegion}"></ContentControl>
     </Grid>
 </Window>

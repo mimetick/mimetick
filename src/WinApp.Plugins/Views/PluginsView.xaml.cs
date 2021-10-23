@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Mimetick.Module.Ssh.Views
+namespace Mimetick.WinApp.Plugins.Views
 {
     /// <summary>
-    /// Interaction logic for SshModuleItemView.xaml
+    /// Interaction logic for PluginsView.xaml
     /// </summary>
-    public partial class SshModuleItemView : UserControl
+    public partial class PluginsView : UserControl
     {
-        public SshModuleItemView()
+        public PluginsView()
         {
             InitializeComponent();
         }

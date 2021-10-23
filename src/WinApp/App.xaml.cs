@@ -1,12 +1,20 @@
-﻿using Mimetick.Module.Git;
-using Mimetick.Module.Ssh;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+using Mimetick.Plugins.Git;
+using Mimetick.Plugins.Ssh;
+using Mimetick.WinApp.Plugins;
 using Mimetick.WinApp.Views;
 
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Unity;
 
+using Serilog;
+
 using System.Windows;
+
+using Unity;
+using Unity.Microsoft.DependencyInjection;
 
 namespace Mimetick.WinApp
 {
@@ -32,6 +40,22 @@ namespace Mimetick.WinApp
         /// <param name="containerRegistry">The container registry.</param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // We don't actually have anything to register.
+        }
+
+        /// <summary>
+        /// Create container extensions.
+        /// </summary>
+        /// <returns>The container extension.</returns>
+        protected override IContainerExtension CreateContainerExtension()
+        {
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+
+            var container = new UnityContainer();
+            container.BuildServiceProvider(serviceCollection);
+
+            return new UnityContainerExtension(container);
         }
 
         /// <summary>
@@ -44,6 +68,8 @@ namespace Mimetick.WinApp
 
             moduleCatalog.AddModule<GitModule>();
             moduleCatalog.AddModule<SshModule>();
+
+            moduleCatalog.AddModule<PluginsModule>(InitializationMode.WhenAvailable, typeof(GitModule).Name, typeof(SshModule).Name);
         }
     }
 }

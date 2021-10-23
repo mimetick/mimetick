@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Plugins.Git\Plugins.Git.csproj" />
+    <ProjectReference Include="..\..\src\Plugins.Ssh\Plugins.Ssh.csproj" />
     <ProjectReference Include="..\..\src\WinApp\WinApp.csproj" />
   </ItemGroup>
 

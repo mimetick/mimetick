@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>Mimetick.Module.Git</AssemblyName>
-    <RootNamespace>Mimetick.Modules.Git</RootNamespace>
+    <AssemblyName>Mimetick.Plugins.Git</AssemblyName>
+    <RootNamespace>Mimetick.Plugins.Git</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
