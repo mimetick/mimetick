@@ -2,6 +2,7 @@ mode: Mainline
 branches: 
   pull-request:
     tag: preview
+    tag-number-pattern: '[/-](?<number>\d+)[-/]'
 ignore:
   sha: []
 merge-message-formats: {}
