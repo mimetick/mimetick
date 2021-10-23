@@ -1,12 +1,11 @@
 ﻿using Mimetick.Core;
-using Mimetick.Module.Ssh.Views;
+
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Regions;
 
-namespace Mimetick.Module.Ssh
+namespace Mimetick.Plugins.Git
 {
-    public class SshModule : IModule
+    public class GitModule : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
@@ -14,7 +13,7 @@ namespace Mimetick.Module.Ssh
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<IMimetickPlugin, SshPlugin>("SSH");
+            containerRegistry.Register<IMimetickPlugin, GitPlugin>("Git");
         }
     }
 }

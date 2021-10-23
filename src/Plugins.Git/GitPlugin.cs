@@ -1,6 +1,6 @@
 ﻿using Mimetick.Core;
 
-namespace Mimetick.Modules.Git
+namespace Mimetick.Plugins.Git
 {
     internal class GitPlugin : IMimetickPlugin
     {

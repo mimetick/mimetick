@@ -2,8 +2,8 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Mimetick.Module.Git;
-using Mimetick.Module.Ssh;
+using Mimetick.Plugins.Git;
+using Mimetick.Plugins.Ssh;
 using Mimetick.WinApp.Tests.Utils;
 
 namespace Mimetick.WinApp.Tests

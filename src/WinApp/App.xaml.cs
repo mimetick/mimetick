@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-using Mimetick.Module.Git;
-using Mimetick.Module.Ssh;
+using Mimetick.Plugins.Git;
+using Mimetick.Plugins.Ssh;
 using Mimetick.WinApp.Plugins;
 using Mimetick.WinApp.Views;
 

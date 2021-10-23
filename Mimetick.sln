@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinApp.Tests", "tests\WinAp
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WinApp.Installer", "src\WinApp.Installer\WinApp.Installer.wixproj", "{2108342E-91B3-40A2-A269-D61583C7BDAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.Git", "src\Module.Git\Module.Git.csproj", "{9060544C-6E2C-45D4-895D-D90CC785242B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugins.Git", "src\Plugins.Git\Plugins.Git.csproj", "{9060544C-6E2C-45D4-895D-D90CC785242B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "src\Core\Core.csproj", "{DA63AEE2-C087-4049-9422-0FD3CE4FC6AB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.Ssh", "src\Module.Ssh\Module.Ssh.csproj", "{2652E969-9723-47CE-A1FE-B54B854B8DD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugins.Ssh", "src\Plugins.Ssh\Plugins.Ssh.csproj", "{2652E969-9723-47CE-A1FE-B54B854B8DD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinApp.Plugins", "src\WinApp.Plugins\WinApp.Plugins.csproj", "{3A3470E7-2C9A-4E8F-A83C-6A3B829517BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinApp.Plugins", "src\WinApp.Plugins\WinApp.Plugins.csproj", "{3A3470E7-2C9A-4E8F-A83C-6A3B829517BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

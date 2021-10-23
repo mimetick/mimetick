@@ -1,6 +1,6 @@
 ﻿using Mimetick.Core;
 
-namespace Mimetick.Module.Ssh
+namespace Mimetick.Plugins.Ssh
 {
     internal class SshPlugin : IMimetickPlugin
     {
