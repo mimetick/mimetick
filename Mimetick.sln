@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31717.71
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinApp", "src\WinApp\WinApp.csproj", "{4F1E4535-4C6B-4B2B-9009-96158DD619A8}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugins.Ssh", "src\Plugins.Ssh\Plugins.Ssh.csproj", "{2652E969-9723-47CE-A1FE-B54B854B8DD4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinApp.Plugins", "src\WinApp.Plugins\WinApp.Plugins.csproj", "{3A3470E7-2C9A-4E8F-A83C-6A3B829517BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.Fonts", "src\Plugins.Fonts\Plugins.Fonts.csproj", "{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,18 @@ Global
 		{3A3470E7-2C9A-4E8F-A83C-6A3B829517BF}.Release|x64.Build.0 = Release|Any CPU
 		{3A3470E7-2C9A-4E8F-A83C-6A3B829517BF}.Release|x86.ActiveCfg = Release|Any CPU
 		{3A3470E7-2C9A-4E8F-A83C-6A3B829517BF}.Release|x86.Build.0 = Release|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Debug|x64.Build.0 = Debug|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Debug|x86.Build.0 = Debug|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Release|x64.ActiveCfg = Release|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Release|x64.Build.0 = Release|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Release|x86.ActiveCfg = Release|Any CPU
+		{1C2C1FEE-B932-434A-838C-BEB6842D4BFF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
