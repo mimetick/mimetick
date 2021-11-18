@@ -1,22 +1,25 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.Identity.Client;
-using Mimetick.Core;
+﻿using Microsoft.Identity.Client;
+using Mimetick.WinApp.Authentication.Internals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mimetick.WinApp.Authentication
 {
+
     internal class AuthenticationService
     {
-        private readonly IPublicClientApplication _clientApplication;
+        private readonly IClientApplication _clientApplication;
 
-        public AuthenticationService(IOptionsSnapshot<AppConfiguration> options)
+        /// <summary>
+        /// Initialize a new <see cref="AuthenticationService"/>
+        /// </summary>
+        /// <param name="clientApplication">The client application used to connect.</param>
+        /// <exception cref="ArgumentNullException">If the parameters are null</exception>
+        public AuthenticationService(IClientApplication clientApplication)
         {
-            _clientApplication = PublicClientApplicationBuilder.Create(options.Value.ClientId)
-                .WithAuthority(AzureCloudInstance.AzurePublic, options.Value.TenantId)
-                .WithDefaultRedirectUri()
-                .Build();
+            _clientApplication = clientApplication ?? throw new ArgumentNullException();
         }
 
         /// <summary>
@@ -35,24 +38,17 @@ namespace Mimetick.WinApp.Authentication
             return false;
         }
 
-        public async Task Authenticate()
+        /// <summary>
+        /// Authenticate the user against the service
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IAccount> Authenticate()
         {
             var scopes = new List<string>() { "user.read" };
 
-            try
-            {
-                var builder = _clientApplication.AcquireTokenInteractive(scopes);
-                var result = await builder.ExecuteAsync();
+            var authenticationResult = await _clientApplication.AcquireTokenInteractiveAsync(scopes);
 
-                if (result == null)
-                {
-                }
-            }
-            catch (System.Exception e)
-            {   
-
-            }
-            
+            return authenticationResult.Account;
         }
     }
 }

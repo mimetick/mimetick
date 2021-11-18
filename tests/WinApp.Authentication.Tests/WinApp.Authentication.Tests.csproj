@@ -1,36 +1,26 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
+	  <AssemblyName>Mimetick.WinApp.Authentication.Tests</AssemblyName>
+	  <RootNamespace>Mimetick.WinApp.Authentication.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
-
-    <AssemblyName>Mimetick.WinApp.Tests</AssemblyName>
-
-    <RootNamespace>Mimetick.WinApp.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
     <PackageReference Include="coverlet.collector" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Prism.Unity" Version="8.1.97" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Plugins.Git\Plugins.Git.csproj" />
-    <ProjectReference Include="..\..\src\Plugins.Ssh\Plugins.Ssh.csproj" />
-    <ProjectReference Include="..\..\src\WinApp\WinApp.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\..\src\WinApp.Authentication\WinApp.Authentication.csproj" />
   </ItemGroup>
 
 </Project>
