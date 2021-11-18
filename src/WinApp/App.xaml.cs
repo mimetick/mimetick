@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Mimetick.Core;
 using Mimetick.Plugins.Git;
 using Mimetick.Plugins.Ssh;
+using Mimetick.WinApp.Authentication;
 using Mimetick.WinApp.Plugins;
 using Mimetick.WinApp.Views;
 
@@ -10,7 +12,7 @@ using Prism.Modularity;
 using Prism.Unity;
 
 using Serilog;
-
+using System.IO;
 using System.Windows;
 
 using Unity;
@@ -49,8 +51,16 @@ namespace Mimetick.WinApp
         /// <returns>The container extension.</returns>
         protected override IContainerExtension CreateContainerExtension()
         {
+            var configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddUserSecrets(typeof(App).Assembly, true, true);
+
+            var configuration = configurationBuilder.Build();
+
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+            serviceCollection.Configure<AppConfiguration>(c => configuration.GetSection("app").Bind(c, o => o.BindNonPublicProperties = true));
 
             var container = new UnityContainer();
             container.BuildServiceProvider(serviceCollection);
@@ -69,6 +79,7 @@ namespace Mimetick.WinApp
             moduleCatalog.AddModule<GitModule>();
             moduleCatalog.AddModule<SshModule>();
 
+            moduleCatalog.AddModule<AuthenticationModule>();
             moduleCatalog.AddModule<PluginsModule>(InitializationMode.WhenAvailable, typeof(GitModule).Name, typeof(SshModule).Name);
         }
     }
