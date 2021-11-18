@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mimetick.Core;
 using Mimetick.Plugins.Git;
 using Mimetick.Plugins.Ssh;
+using Mimetick.WinApp.Authentication;
 using Mimetick.WinApp.Plugins;
 using Mimetick.WinApp.Views;
 
@@ -78,6 +79,7 @@ namespace Mimetick.WinApp
             moduleCatalog.AddModule<GitModule>();
             moduleCatalog.AddModule<SshModule>();
 
+            moduleCatalog.AddModule<AuthenticationModule>();
             moduleCatalog.AddModule<PluginsModule>(InitializationMode.WhenAvailable, typeof(GitModule).Name, typeof(SshModule).Name);
         }
     }
