@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using FluentAssertions;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mimetick.Core;
 using Moq;
@@ -24,6 +25,8 @@ namespace Mimetick.WinApp.Authentication.Tests
 
             var provider = containerRegistry.CreateScope();
             var authenticationService = provider.Resolve(typeof(AuthenticationService));
+
+            authenticationService.Should().NotBeNull();
         }
     }
 }
