@@ -7,10 +7,7 @@ using Prism.Modularity;
 using Prism.Regions;
 using System.Runtime.CompilerServices;
 
-#if DEBUG
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
-#endif
-
 [assembly: InternalsVisibleTo("Mimetick.WinApp.Authentication.Tests")]
 
 namespace Mimetick.WinApp.Authentication
