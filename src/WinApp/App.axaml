@@ -1,0 +1,13 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:WinApp"
+             xmlns:winApp="clr-namespace:Mimetick.WinApp"
+             x:Class="Mimetick.WinApp.App">
+    <Application.DataTemplates>
+        <winApp:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme Mode="Light"/>
+    </Application.Styles>
+</Application>
