@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinApp", "src\WinApp\WinApp.csproj", "{52172FCC-6D5F-4988-AD7F-28AEF42C7042}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins", "src\Plugins\Plugins.csproj", "{98B5908F-F503-4E40-9D90-B041B3AB9709}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.Git", "src\Plugins.Git\Plugins.Git.csproj", "{D37F5416-2200-475D-9619-6F722B817B0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{52172FCC-6D5F-4988-AD7F-28AEF42C7042}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52172FCC-6D5F-4988-AD7F-28AEF42C7042}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52172FCC-6D5F-4988-AD7F-28AEF42C7042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B5908F-F503-4E40-9D90-B041B3AB9709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B5908F-F503-4E40-9D90-B041B3AB9709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B5908F-F503-4E40-9D90-B041B3AB9709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B5908F-F503-4E40-9D90-B041B3AB9709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D37F5416-2200-475D-9619-6F722B817B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D37F5416-2200-475D-9619-6F722B817B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D37F5416-2200-475D-9619-6F722B817B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D37F5416-2200-475D-9619-6F722B817B0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

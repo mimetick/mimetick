@@ -3,15 +3,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Mimetick.WinApp.ViewModels"
+        xmlns:reactiveUi="http://reactiveui.net"
+        xmlns:behaviors="clr-namespace:Mimetick.WinApp.Behaviors"
+        xmlns:views="clr-namespace:Mimetick.WinApp.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Mimetick.WinApp.Views.MainView"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Mimetick">
+        Title="Mimetick"
+        behaviors:LoadedBehavior.Command="{Binding InitializeCommand}"
+        x:Name="MimetickWindow">
     
         <Design.DataContext>
                 <viewModels:MainViewModel/>
         </Design.DataContext>
-
-        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         
+        <reactiveUi:RoutedViewHost Router="{Binding Router}">
+                <reactiveUi:RoutedViewHost.ViewLocator>
+                        <views:AppViewLocator />
+                </reactiveUi:RoutedViewHost.ViewLocator>
+        </reactiveUi:RoutedViewHost>
 </Window>
